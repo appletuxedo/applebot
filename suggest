@@ -1,0 +1,21 @@
+import discord
+from discord.ext import commands, tasks
+from discord.ext.commands import bot #imports modules
+
+apple = commands.Bot(command_prefix="apple.") #creates bot object and sets prefix
+ 
+@apple.command(name = "suggestion") #creates command
+async def suggestion(ctx,*, message :str) : #ctx is context, a required variable in an command. The * in between ctx and message means the rest of the message, is that varable(Everything after klesh.suggestion)
+  if ctx.channel.id == 813479087200927805 : #checks if the channel id is #suggestion-command in mine-raft.io server
+    channel = klesh.get_channel(813479087200927805) #gets the channel object so it can send message in #suggestion
+    embed=discord.Embed(title=ctx.author, url="https://www.youtube.com/watch?v=dQw4w9WgXcQ",description=message, color=1752220) #creates an embed with title being the name of the author and description being the suggestion text
+    messagesuggestion = await channel.send(embed=embed) #sends embed in that channel, sets messagesuggestion to the message object of the one with embeds sent in #suggestions
+   thumbsup = "<:Thumbsup:860646037383675905>" #emojis to add, thumbs up to
+    kleshdown = "<:Thumbsdown:871583551026507827>"
+    await messagesuggestion.add_reaction(thumbsup) #adds thumbs up to the message sent in #suggestions
+    await messagesuggestion.add_reaction(thumbsdown)
+    await ctx.message.delete() #deletes the command sent in #suggestion-command
+    embed=discord.Embed(title=ctx.author, url="https://www.youtube.com/watch?v=dQw4w9WgXcQ",description="Suggestion Submitted :white_check_mark:", color=1752220) #creates confirmation message embed
+    await ctx.send(embed=embed) #sends that confirmation embed in #suggestion-command
+
+apple.run("yourtokenhere")
